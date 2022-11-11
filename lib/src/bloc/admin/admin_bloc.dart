@@ -1,0 +1,34 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:repticpedia/src/cubit/cubits.dart';
+import 'package:repticpedia/src/model/models.dart';
+import 'package:repticpedia/src/service/services.dart';
+
+part 'admin_event.dart';
+part 'admin_state.dart';
+
+class AdminBloc extends Bloc<AdminEvent, AdminState> {
+  final ProductPictureCubit productPictureCubit;
+  AdminBloc(this.productPictureCubit) : super(AdminInitial()) {
+    on<AddProduct>((event, emit) async {
+      emit(AdminIsLoading());
+      ProductModel data = ProductModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        dateTime: DateTime.now(),
+        name: event.name,
+        price: event.price,
+        picture: '',
+      );
+
+      final result = await AdminService().addNewProduct(data,
+          file: (productPictureCubit.state is ProductPictureIsLoaded)
+              ? (productPictureCubit.state as ProductPictureIsLoaded).file
+              : null);
+
+      result.fold((l) => emit(AdminIsFailed(message: l)),
+          (r) => emit(AdminIsSuccess(message: r)));
+    });
+  }
+}

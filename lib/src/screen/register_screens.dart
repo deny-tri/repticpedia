@@ -15,27 +15,77 @@ class _RegisterScreensState extends State<RegisterScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocListener<RegisterBloc, RegisterState>(
-          listener: (context, state) {
-            if (state is RegisterIsFailed) {
-              Commons().showSnackbar(context, state.message);
-            } else if (state is RegisterIsSuccess) {
-              context.go(routeName.home);
-            }
-          },
-          child: VStack(
-            [
-              // VxBox()
-              //     .size(context.screenWidth, context.percentHeight * 20)
-              //     .color(colorName.accentBlue)
-              //     .bottomRounded(value: 20)
-              //     .make(),
-              "Register".text.headline5(context).make().p16(),
-              _buildRegisterForm(),
-            ],
+        child: SingleChildScrollView(
+          child: BlocListener<RegisterBloc, RegisterState>(
+            listener: (context, state) {
+              if (state is RegisterIsFailed) {
+                Commons().showSnackbar(context, state.message);
+              } else if (state is RegisterIsSuccess) {
+                context.go(routeName.home);
+              }
+            },
+            child: VStack(
+              alignment: MainAxisAlignment.center,
+              [
+                _buildHeaderText(),
+                _buildRegisterForm(),
+                _buildRegisSosmed(),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildHeaderText() {
+    return VxBox(
+      child: VStack(
+        [
+          'Created New Account'
+              .text
+              .bold
+              .headline5(context)
+              .color(colorName.accentBlue)
+              .make(),
+          'Enter your Email, Name and Password for sign up'.text.make(),
+          HStack([
+            'for sign up. '.text.make(),
+            'Already Have Account'
+                .text
+                .color(colorName.accentBlue)
+                .make()
+                .onTap(() {
+              context.go(routeName.login);
+            })
+          ]),
+        ],
+      ),
+    )
+        .size(context.screenWidth, context.percentHeight * 20)
+        .margin(const EdgeInsets.only(top: 20))
+        .p16
+        .make();
+  }
+
+  Widget _buildRegisSosmed() {
+    return HStack(
+      [
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 14),
+          ),
+          onPressed: () {},
+          child: Image.asset(
+            "assets/images/google.png",
+            fit: BoxFit.cover,
+            height: 20,
+            width: 20,
+          ),
+        ),
+      ],
+      alignment: MainAxisAlignment.center,
+      axisSize: MainAxisSize.max,
     );
   }
 
@@ -46,16 +96,19 @@ class _RegisterScreensState extends State<RegisterScreens> {
           title: "Email",
           controller: emailController,
         ),
+        16.heightBox,
         TextFieldWidget(
           title: "Username",
           controller: usernameController,
         ),
+        16.heightBox,
         TextFieldWidget(
           title: "Password",
           controller: passwordController,
           isEnabled: true,
           isPassword: true,
         ),
+        16.heightBox,
         BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) {
             return ButtonWidget(
@@ -72,6 +125,8 @@ class _RegisterScreensState extends State<RegisterScreens> {
             );
           },
         ),
+        8.heightBox,
+        'Or Connect With'.text.makeCentered()
       ],
     ).p(16);
   }

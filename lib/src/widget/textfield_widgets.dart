@@ -27,7 +27,16 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       textAlignVertical: TextAlignVertical.center,
       obscureText: (widget.isPassword!) ? isObscure : false,
       decoration: InputDecoration(
-          border: InputBorder.none,
+          // border: InputBorder.none,
+          icon: (widget.isPassword!)
+              ? const Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                )
+              : const Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
           hintText: widget.title,
           suffixIcon: (widget.isPassword!)
               ? IconButton(
