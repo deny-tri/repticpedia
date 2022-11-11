@@ -39,7 +39,7 @@ To get a local copy up and running follow these simple example steps.
 - [x] Login
 - [x] Register
 - [ ] Profile
-- [ ] Home
+- [x] Home
 - [ ] Product
     - [ ] List
     - [ ] Detail

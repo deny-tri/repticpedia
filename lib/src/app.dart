@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repticpedia/src/cubit/cubits.dart';
 import 'package:repticpedia/src/utilitie/utilities.dart';
 
 import 'bloc/blocs.dart';
@@ -21,6 +22,15 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => UserBloc(),
+          child: Container(),
+        ),
+        BlocProvider(
+          create: (context) => AdminBloc(
+            ProductPictureCubit(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ProductPictureCubit(),
           child: Container(),
         ),
       ],

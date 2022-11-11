@@ -26,9 +26,15 @@ class _LoginScreensState extends State<LoginScreens> {
           },
           child: VStack(
             [
-              "Login".text.headline5(context).make().p16(),
+              'Hello Again!'
+                  .text
+                  .color(colorName.accentBlue)
+                  .headline4(context)
+                  .makeCentered(),
               _buildLoginForm(),
             ],
+            alignment: MainAxisAlignment.center,
+            axisSize: MainAxisSize.max,
           ),
         ),
       ),
@@ -42,12 +48,15 @@ class _LoginScreensState extends State<LoginScreens> {
           title: "Email",
           controller: emailController,
         ),
+        16.heightBox,
         TextFieldWidget(
           title: "Password",
           controller: passwordController,
           isEnabled: true,
           isPassword: true,
         ),
+        8.heightBox,
+        'Forget Password?'.text.color(colorName.accentBlue).make(),
         16.heightBox,
         BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
@@ -64,7 +73,38 @@ class _LoginScreensState extends State<LoginScreens> {
             );
           },
         ),
+        HStack(
+          [
+            'Create new account?'.text.makeCentered(),
+            8.widthBox,
+            'Register'
+                .text
+                .color(colorName.accentBlue)
+                .makeCentered()
+                .onTap(() {
+              context.go(routeName.register);
+            }),
+          ],
+          alignment: MainAxisAlignment.center,
+          axisSize: MainAxisSize.max,
+        ),
+        8.heightBox,
+        'Or Continue With'.text.bold.makeCentered(),
+        8.heightBox,
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 14),
+          ),
+          onPressed: () {},
+          child: Image.asset(
+            "assets/images/google.png",
+            fit: BoxFit.cover,
+            height: 20,
+            width: 20,
+          ),
+        ),
       ],
+      crossAlignment: CrossAxisAlignment.center,
     ).p(16);
   }
 }

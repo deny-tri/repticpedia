@@ -5,6 +5,7 @@ mixin routeName {
   static const splash = '/splash';
   static const register = '/register';
   static const home = '/home';
+  static const admin = 'admin';
   static const adminPath = '/home/admin';
 }
 
@@ -13,10 +14,11 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
     path: routeName.splash,
     redirect: (context, state) {
       if (FirebaseAuth.instance.currentUser != null) {
+        Commons().setUID(FirebaseAuth.instance.currentUser!.uid);
         BlocProvider.of<UserBloc>(context).add(LoadUserData());
         return routeName.home;
       } else {
-        return routeName.login;
+        return routeName.register;
       }
     },
     builder: (context, state) {
@@ -37,10 +39,16 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
     },
   ),
   GoRoute(
-    path: routeName.home,
-    builder: (context, state) {
-      BlocProvider.of<UserBloc>(context).add(LoadUserData());
-      return const HomeScreens();
-    },
-  ),
+      path: routeName.home,
+      builder: (context, state) {
+        BlocProvider.of<UserBloc>(context).add(LoadUserData());
+        return const HomeScreens();
+      },
+      routes: [
+        GoRoute(
+            path: routeName.admin,
+            builder: (context, state) {
+              return const AdminScreens();
+            })
+      ]),
 ]);
