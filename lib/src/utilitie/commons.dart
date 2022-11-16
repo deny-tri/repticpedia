@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 part of 'utilities.dart';
 
 class Commons {

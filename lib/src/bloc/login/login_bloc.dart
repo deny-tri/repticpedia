@@ -24,5 +24,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       },
     );
+    on<GoogleSignInRequested>((event, emit) async {
+      emit(LoginIsLoading());
+      try {
+        await UserServices().signInWithGoogle();
+        emit(Authenticated());
+      } catch (e) {
+        emit(AuthError(e.toString()));
+        emit(UnAuthenticated());
+      }
+    });
   }
 }

@@ -11,6 +11,12 @@ class _RegisterScreensState extends State<RegisterScreens> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
+  void _authenticateWithGoogle(context) {
+    BlocProvider.of<LoginBloc>(context).add(
+      GoogleSignInRequested(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +81,9 @@ class _RegisterScreensState extends State<RegisterScreens> {
           style: TextButton.styleFrom(
             textStyle: const TextStyle(fontSize: 14),
           ),
-          onPressed: () {},
+          onPressed: () {
+            _authenticateWithGoogle(context);
+          },
           child: Image.asset(
             "assets/images/google.png",
             fit: BoxFit.cover,

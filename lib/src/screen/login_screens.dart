@@ -10,6 +10,12 @@ class LoginScreens extends StatefulWidget {
 class _LoginScreensState extends State<LoginScreens> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  void _authenticateWithGoogle(context) {
+    BlocProvider.of<LoginBloc>(context).add(
+      GoogleSignInRequested(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +101,9 @@ class _LoginScreensState extends State<LoginScreens> {
           style: TextButton.styleFrom(
             textStyle: const TextStyle(fontSize: 14),
           ),
-          onPressed: () {},
+          onPressed: () {
+            _authenticateWithGoogle(context);
+          },
           child: Image.asset(
             "assets/images/google.png",
             fit: BoxFit.cover,

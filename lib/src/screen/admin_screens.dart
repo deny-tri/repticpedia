@@ -10,42 +10,48 @@ class AdminScreens extends StatefulWidget {
 class _AdminScreensState extends State<AdminScreens> {
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController productPriceController = TextEditingController();
+  void reset() {
+    productNameController.clear();
+    productPriceController.clear();
+    BlocProvider.of<ProductPictureCubit>(context).resetImage();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: 'Add Product'.text.make(),
-        elevation: 0.0,
+    return WillPopScope(
+      onWillPop: () async {
+        reset();
+        return Future.value(true);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: 'Add Product'.text.make(),
+          elevation: 0.0,
+        ),
+        body: BlocConsumer<AdminBloc, AdminState>(
+          listener: (context, state) {
+            if (state is AdminIsSuccess) {
+              reset();
+              Commons().showSnackbar(context, state.message);
+            }
+          },
+          builder: (context, state) {
+            return VStack([
+              _buildProductFrom(),
+              ButtonWidget(
+                onPressed: () {
+                  BlocProvider.of<AdminBloc>(context).add(AddProduct(
+                    name: productNameController.text,
+                    price: double.parse(productPriceController.text),
+                  ));
+                },
+                isLoading: (state is AdminIsLoading) ? true : false,
+                text: 'Upload',
+              ).p16()
+            ]);
+          },
+        ),
       ),
-      body: BlocConsumer<AdminBloc, AdminState>(
-        listener: (context, state) {
-          if (state is AdminIsSuccess) {
-            Commons().showSnackbar(context, state.message);
-          }
-        },
-        builder: (context, state) {
-          return VStack([
-            _buildProductFrom(),
-            ButtonWidget(
-              onPressed: () {
-                BlocProvider.of<AdminBloc>(context).add(AddProduct(
-                  name: productNameController.text,
-                  price: double.parse(productPriceController.text),
-                ));
-              },
-              isLoading: (state is AdminIsLoading) ? true : false,
-              text: 'Upload',
-            ).p16()
-          ]);
-        },
-      ),
-      // body: VStack([
-      //   _buildProductFrom(),
-      //   ButtonWidget(
-      //     onPressed: () {},
-      //     text: 'Upload',
-      //   ).p16(),
-      // ]),
     );
   }
 
