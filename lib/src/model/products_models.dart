@@ -6,13 +6,13 @@ class ProductModel {
   final DateTime? dateTime;
   final String? name;
   final double? price;
-  final String picture;
+  final String? picture;
   ProductModel({
     this.id,
     this.dateTime,
     this.name,
     this.price,
-    required this.picture,
+    this.picture,
   });
 
   ProductModel copyWith({
@@ -49,7 +49,9 @@ class ProductModel {
           : null,
       name: map['name'] != null ? map['name'] as String : null,
       price: map['price'] != null ? map['price'] as double : null,
-      picture: map['picture'] as String,
+      picture: map['picture'] != null
+          ? map['picture'] as String
+          : "https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg",
     );
   }
 

@@ -12,27 +12,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => RegisterBloc()),
+        BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => ListProductBloc()),
+        BlocProvider(create: (context) => DetailProductsBloc()),
+        BlocProvider(create: (context) => ProductPictureCubit()),
+        BlocProvider(create: (context) => ListProductBloc()),
         BlocProvider(
-          create: (context) => RegisterBloc(),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) => LoginBloc(),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) => UserBloc(),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) => AdminBloc(
-            ProductPictureCubit(),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => ProductPictureCubit(),
-          child: Container(),
-        ),
+            create: (context) =>
+                AdminBloc(BlocProvider.of<ProductPictureCubit>(context))),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

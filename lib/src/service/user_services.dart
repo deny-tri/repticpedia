@@ -1,6 +1,9 @@
+// ignore_for_file: unused_field
+
 part of 'services.dart';
 
 class UserServices {
+  final _firebaseAuth = FirebaseAuth.instance;
   final usersCollection =
       FirebaseFirestore.instance.collection(userCollectionName);
   Future<Either<String, UserModel>> registerWithEmail(
@@ -48,7 +51,25 @@ class UserServices {
     }
   }
 
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final userCredential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+      await FirebaseAuth.instance.signInWithCredential(userCredential);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future<void> logOutUser() async {
-    await FirebaseAuth.instance.signOut();
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
