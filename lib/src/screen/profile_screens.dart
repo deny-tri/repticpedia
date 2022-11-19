@@ -1,7 +1,7 @@
 part of 'screens.dart';
 
-class HomeScreens extends StatelessWidget {
-  const HomeScreens({super.key});
+class ProfileScreens extends StatelessWidget {
+  const ProfileScreens({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,23 +17,12 @@ class HomeScreens extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is UserIsLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator().centered();
             } else if (state is UserIsSuccess) {
               return VStack(
                 [
                   _buildAppbar(context, state.data),
                   24.heightBox,
-                  //  _buildListProduct().expand(),
-                  TextButton(
-                      onPressed: () {
-                        context.go(routeName.profilePath);
-                      },
-                      child: 'profile'.text.make()),
-                  TextButton(
-                      onPressed: () {
-                        context.go(routeName.productPath);
-                      },
-                      child: 'product'.text.make()),
                 ],
                 alignment: MainAxisAlignment.start,
                 axisSize: MainAxisSize.max,
@@ -80,46 +69,4 @@ class HomeScreens extends StatelessWidget {
       ),
     ).gray100.make();
   }
-
-  // Widget _buildListProduct() {
-  //   return BlocConsumer<ListProductBloc, ListProductState>(
-  //     listener: (context, state) {
-  //       if (state is ListProductIsFailed) {
-  //         Commons().showSnackbar(context, state.message);
-  //       }
-  //     },
-  //     builder: (context, state) {
-  //       if (state is ListProductIsLoading) {
-  //         return GridView.builder(
-  //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //             crossAxisCount: 2,
-  //             crossAxisSpacing: 16,
-  //             mainAxisSpacing: 16,
-  //           ),
-  //           itemBuilder: (context, index) {
-  //             return Skelton();
-  //           },
-  //         );
-  //       }
-  //       if (state is ListProductIsSuccess) {
-  //         final data = state.products;
-  //         return GridView.builder(
-  //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //             crossAxisCount: 2,
-  //             crossAxisSpacing: 16,
-  //             mainAxisSpacing: 16,
-  //           ),
-  //           itemCount: data.length,
-  //           itemBuilder: (context, index) {
-  //             return ProductWidgets(
-  //               products: data[index],
-  //             );
-  //           },
-  //         );
-  //       }
-
-  //       return Container();
-  //     },
-  //   );
-  // }
 }

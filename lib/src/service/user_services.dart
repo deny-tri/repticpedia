@@ -66,10 +66,6 @@ class UserServices {
   }
 
   Future<void> logOutUser() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      throw Exception(e);
-    }
+    await FirebaseAuth.instance.signOut();
   }
 }

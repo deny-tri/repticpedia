@@ -23,7 +23,7 @@ class _LoginScreensState extends State<LoginScreens> {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginIsFailed) {
-              Commons().showSnackbar(context, state.message);
+              Commons().showSnackBar(context, state.message);
               ScaffoldMessenger.of(context)
                   .showSnackBar(SnackBar(content: state.message.text.make()));
             } else if (state is LoginIsSuccess) {

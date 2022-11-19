@@ -7,8 +7,8 @@ abstract class LoginState {}
 class LoginInitial extends LoginState {}
 
 class LoginIsLoading extends LoginState {
-  // @override
-  // List<Object?> get props => [];
+  @override
+  List<Object?> get props => [];
 }
 
 class LoginIsFailed extends LoginState {

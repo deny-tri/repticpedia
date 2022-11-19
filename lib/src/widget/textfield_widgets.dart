@@ -51,3 +51,29 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
     ).pSymmetric(h: 12).box.white.withRounded(value: 10).make();
   }
 }
+
+class TextAdmin extends StatefulWidget {
+  final TextEditingController? controller;
+  final String? title;
+
+  const TextAdmin({
+    Key? key,
+    this.controller,
+    this.title,
+  }) : super(key: key);
+
+  @override
+  State<TextAdmin> createState() => _TextAdminState();
+}
+
+class _TextAdminState extends State<TextAdmin> {
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: widget.controller,
+      decoration: InputDecoration(
+        hintText: widget.title,
+      ),
+    ).pSymmetric(h: 12).box.white.withRounded(value: 10).make();
+  }
+}

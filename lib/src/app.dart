@@ -18,6 +18,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => ListProductBloc()),
         BlocProvider(create: (context) => DetailProductsBloc()),
         BlocProvider(create: (context) => ProductPictureCubit()),
+        BlocProvider(create: (context) => AddToChartCubit()),
         BlocProvider(create: (context) => ListProductBloc()),
         BlocProvider(
             create: (context) =>
