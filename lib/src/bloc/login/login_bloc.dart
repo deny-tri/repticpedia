@@ -34,5 +34,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(UnAuthenticated());
       }
     });
+    on<SignOutRequested>((event, emit) async {
+      emit(LoginIsLoading());
+      await UserServices().logOutUser();
+      emit(UnAuthenticated());
+    });
   }
 }

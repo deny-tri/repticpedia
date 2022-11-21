@@ -3,7 +3,13 @@
 part of 'services.dart';
 
 class UserServices {
-  final _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
+
+  UserServices({FirebaseAuth? firebaseAuth, GoogleSignIn? googleSignin})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignin ?? GoogleSignIn();
+
   final usersCollection =
       FirebaseFirestore.instance.collection(userCollectionName);
   Future<Either<String, UserModel>> registerWithEmail(

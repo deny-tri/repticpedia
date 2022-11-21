@@ -11,11 +11,11 @@ class _RegisterScreensState extends State<RegisterScreens> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-  void _authenticateWithGoogle(context) {
-    BlocProvider.of<LoginBloc>(context).add(
-      GoogleSignInRequested(),
-    );
-  }
+  // void _authenticateWithGoogle(context) {
+  //   BlocProvider.of<LoginBloc>(context).add(
+  //     GoogleSignInRequested(),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

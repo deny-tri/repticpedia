@@ -43,13 +43,14 @@ class DetailProductWidgets extends StatelessWidget {
     return VStack(
       [
         VxBox(
-                child: ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child: Image.network(
-            data.picture!,
-            fit: BoxFit.cover,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Image.network(
+              data.picture!,
+              fit: BoxFit.cover,
+            ),
           ),
-        ))
+        )
             .size(context.screenWidth, context.percentHeight * 30)
             .bottomRounded(value: 20)
             .make(),

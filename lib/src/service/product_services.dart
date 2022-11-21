@@ -29,19 +29,19 @@ class ProductService {
     }
   }
 
-  Future<Either<String, List<ProductModel>>> fetchListProductCaraKedua() async {
-    try {
-      final querySnapshot = await productCollection.get();
+  // Future<Either<String, List<ProductModel>>> fetchListProductCaraKedua() async {
+  //   try {
+  //     final querySnapshot = await productCollection.get();
 
-      final dataSatu = <ProductModel>[];
-      for (var element in querySnapshot.docs) {
-        dataSatu.add(ProductModel.fromMap(element.data()));
-      }
-      return right(dataSatu);
-    } catch (e) {
-      return left(e.toString());
-    }
-  }
+  //     final dataSatu = <ProductModel>[];
+  //     for (var element in querySnapshot.docs) {
+  //       dataSatu.add(ProductModel.fromMap(element.data()));
+  //     }
+  //     return right(dataSatu);
+  //   } catch (e) {
+  //     return left(e.toString());
+  //   }
+  // }
 
   Future<Either<String, String>> addToCart(ProductModel model) async {
     try {
@@ -101,7 +101,3 @@ class ProductService {
     }
   }
 }
-
-//Query Snapshot => banyak document
-
-//Document Snapshot => satu document

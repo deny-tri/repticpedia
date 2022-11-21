@@ -17,23 +17,16 @@ class HomeScreens extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is UserIsLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (state is UserIsSuccess) {
               return VStack(
                 [
                   _buildAppbar(context, state.data),
                   24.heightBox,
+                  _buildBannerHome(context),
+                  24.heightBox,
                   //  _buildListProduct().expand(),
-                  TextButton(
-                      onPressed: () {
-                        context.go(routeName.profilePath);
-                      },
-                      child: 'profile'.text.make()),
-                  TextButton(
-                      onPressed: () {
-                        context.go(routeName.productPath);
-                      },
-                      child: 'product'.text.make()),
+                  _buildMenuHome(context),
                 ],
                 alignment: MainAxisAlignment.start,
                 axisSize: MainAxisSize.max,
@@ -44,6 +37,43 @@ class HomeScreens extends StatelessWidget {
         ).p16().centered(),
       ),
     );
+  }
+
+  Widget _buildBannerHome(BuildContext context) {
+    return const HStack([])
+        .box
+        .outerShadow
+        .color(colorName.white)
+        .size(context.safePercentWidth * 100, context.safePercentHeight * 15)
+        .make();
+  }
+
+  Widget _buildMenuHome(BuildContext context) {
+    return HStack(
+      [
+        VStack(
+          [
+            TextButton(
+                onPressed: () {
+                  context.go(routeName.profilePath);
+                },
+                child: 'profile'.text.make()),
+            TextButton(
+                onPressed: () {
+                  context.go(routeName.productPath);
+                },
+                child: 'product'.text.make()),
+          ],
+        ),
+      ],
+      alignment: MainAxisAlignment.spaceBetween,
+      axisSize: MainAxisSize.max,
+    )
+        .box
+        .outerShadow
+        .color(colorName.white)
+        .size(context.safePercentWidth * 100, context.safePercentHeight * 20)
+        .make();
   }
 
   Widget _buildAppbar(BuildContext context, UserModel data) {
