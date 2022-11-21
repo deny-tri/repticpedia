@@ -11,19 +11,28 @@ class Commons {
     await storage.setString(myUID, uid);
   }
 
-  Future<String?> getUID() async {
+  Future<String> getUID() async {
     final storage = await prefs;
-    return storage.getString(myUID);
+    return storage.getString(myUID)!;
   }
 
-  Future<bool?> removeUID() async {
+  Future<bool> removeUID() async {
     final storage = await prefs;
     return storage.remove(myUID);
   }
 
-  void showSnackbar(BuildContext context, String message) {
+  void showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: message.text.make()));
+  }
+
+  //fungsi untuk get Image from gallery
+  Future<File> getImage() async {
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 10,
+    );
+    return File(pickedFile!.path);
   }
 
   String greeting() {
@@ -35,11 +44,5 @@ class Commons {
       return 'Afternoon';
     }
     return 'Evening';
-  }
-
-  Future<File> getImage() async {
-    final pickerFile =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 10);
-    return File(pickerFile!.path);
   }
 }

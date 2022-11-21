@@ -11,4 +11,3 @@ import 'package:repticpedia/src/utilitie/utilities.dart';
 part 'user_services.dart';
 part 'admin_services.dart';
 part 'product_services.dart';
-part 'auth_repository.dart';

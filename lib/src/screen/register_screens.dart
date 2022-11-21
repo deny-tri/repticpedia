@@ -11,11 +11,11 @@ class _RegisterScreensState extends State<RegisterScreens> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
-  void _authenticateWithGoogle(context) {
-    BlocProvider.of<LoginBloc>(context).add(
-      GoogleSignInRequested(),
-    );
-  }
+  // void _authenticateWithGoogle(context) {
+  //   BlocProvider.of<LoginBloc>(context).add(
+  //     GoogleSignInRequested(),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
           child: BlocListener<RegisterBloc, RegisterState>(
             listener: (context, state) {
               if (state is RegisterIsFailed) {
-                Commons().showSnackbar(context, state.message);
+                Commons().showSnackBar(context, state.message);
               } else if (state is RegisterIsSuccess) {
                 context.go(routeName.home);
               }
@@ -82,7 +82,7 @@ class _RegisterScreensState extends State<RegisterScreens> {
             textStyle: const TextStyle(fontSize: 14),
           ),
           onPressed: () {
-            _authenticateWithGoogle(context);
+            // _authenticateWithGoogle(context);
           },
           child: Image.asset(
             "assets/images/google.png",

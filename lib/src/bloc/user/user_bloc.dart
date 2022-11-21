@@ -23,10 +23,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         ),
       );
     });
-    // on<LogOutUser>((event, emit) async {
-    //   emit(UserIsLogOut());
-    //   await Commons().removeUID();
-    //   UserServices().logOutUser();
-    // });
+    on<LogOutUser>((event, emit) async {
+      emit(UserIsLogOut());
+      await Commons().removeUID();
+      UserServices().logOutUser();
+    });
   }
 }

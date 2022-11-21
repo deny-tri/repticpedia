@@ -9,6 +9,10 @@ mixin routeName {
   static const adminPath = '/home/admin';
   static const detail = 'detail';
   static const detailPath = '/home/detail';
+  static const profile = 'profile';
+  static const profilePath = '/home/profile';
+  static const product = 'product';
+  static const productPath = '/home/product';
 }
 
 final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
@@ -48,6 +52,16 @@ final GoRouter router = GoRouter(initialLocation: routeName.splash, routes: [
         return const HomeScreens();
       },
       routes: [
+        GoRoute(
+            path: routeName.profile,
+            builder: (context, state) {
+              return const ProfileScreens();
+            }),
+        GoRoute(
+            path: routeName.product,
+            builder: (context, state) {
+              return const ProductScreens();
+            }),
         GoRoute(
             path: routeName.admin,
             builder: (context, state) {
